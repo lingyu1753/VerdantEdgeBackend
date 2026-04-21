@@ -1,0 +1,23 @@
+verdant:
+  alioss:                      # 阿里云 OSS 配置
+    endpoint: oss-cn-shenzhen.aliyuncs.com # 从阿里云控制台获取的 endpoint
+    region: cn-shenzhen                    # 从阿里云控制台查询文档获取 region
+    bucketName: lingyu175-web              # 从阿里云控制台获取的 bucketName
+    access-key-id: access-key-id           # 从阿里云控制台获取的 access-key-id
+    access-key-secret: access-key-secret   # 从阿里云控制台获取的 access-key-secret
+  datasource:                   # 数据库配置
+    url: jdbc:mysql://localhost:3306/verdant-edge
+    username: root
+    password: 123456
+  mail:                         # 邮件配置
+    host: smtp.qq.com           # 从邮箱服务提供商获取的 SMTP 主机地址
+    port: 465                   # 从邮箱服务提供商获取的 SMTP 协议端口号
+    username: 2975194966@qq.com # 你的邮箱
+    password: aclnbepknekddejb  # SMTP服务秘钥
+  dashscope:                    # AI配置
+    api-key: sk-7314606eb21a4568b18d4145d41ef657 # 从DashScope控制台获取的 API Key
+  password:                     # 密码加密配置
+    strength: 5                 # 密码加密强度，值范围为1-100，默认值为10
+
+
+

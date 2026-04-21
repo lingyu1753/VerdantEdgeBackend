@@ -1,0 +1,105 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+  address: 0.0.0.0   # 监听所有网卡
+
+spring:
+  ai: # SpringAI配置
+    dashscope: # OpenAI API配置
+      api-key: ${verdant.dashscope.api-key} # DashScope API 密钥
+      chat: # 聊天配置
+        enabled: true
+        options:
+          model: qwen-max             # 默认模型名称
+          temperature: 0.7            # 温度参数，控制生成文本的随机性
+
+  profiles:
+    active: dev
+
+  application:
+    name: verdant-edge
+
+  datasource:
+    url: ${verdant.datasource.url}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${verdant.datasource.username}
+    password: ${verdant.datasource.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      # 核心连接池参数
+      maximum-pool-size: 20      # 最大连接数
+      minimum-idle: 10           # 最小空闲连接数
+      connection-timeout: 30000  # 获取连接超时时间（ms）
+      idle-timeout: 600000       # 空闲连接回收时间（ms）
+      max-lifetime: 1800000      # 连接最大生命周期（ms）
+
+  thymeleaf:
+    check-template-location: false
+
+  mail:                               # 邮件配置
+    default-encoding: utf-8           # 邮件默认编码
+    port: ${verdant.mail.port}                         # 邮件服务器端口
+    host: ${verdant.mail.host}                 # 配置 SMTP 服务器地址
+    username: ${verdant.mail.username}       # 发送方邮件名
+    password: ${verdant.mail.password}        # 授权码
+    properties:                       # 配置 SMTP 服务器属性
+      mail:
+        smtp:
+          auth: true
+          ssl:                 # 本地测试，先放开 ssl
+            enable: true
+            required: false
+            starttls:
+              enable: true
+            protocols: TLSv1.2 # linux mail protocols
+            debug: true        # 开启debug模式，这样邮件发送过程的日志会在控制台打印出来，方便排查错误
+
+# MP 配置
+mybatis-plus:
+  type-aliases-package: verdant.edge.domain.entity # 别名扫描包
+  mapper-locations: "classpath*:/mapper/**/*.xml"    #  Mapper.xml 文件地址,默认值
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启 SQL 日志，方便调试
+  global-config:
+    db-config:
+      id-type: auto # 主键策略：数据库自增
+
+logging:
+  level:
+    edge:
+      verdant:
+        mapper: debug
+        service: info
+        controller: info
+
+aliyun:
+  oss:
+    endpoint: ${verdant.alioss.endpoint}
+    region: ${verdant.alioss.region}
+    bucketName: ${verdant.alioss.bucketName}
+    accessKeyId: ${verdant.alioss.access-key-id}
+    accessKeySecret: ${verdant.alioss.access-key-secret}
+
+jwt:                           # JWT 令牌 配置
+  secret-key: dmVyZGFudC1lZGdlLWp3dC1zZWNyZXQta2V5LTIwMjYtc2VjdXJl # 密钥
+  expiration-time: 720000000    # 过期时间（ms）,24h
+  signature-algorithm: HS256   # 签名算法
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+knife4j:
+  enable: true
+  setting:
+    language: zh-CN
+    enable-swagger-models: true
+    enable-document-manage: true
+
+verdant:
+  password:
+    strength: ${verdant.password.strength}
