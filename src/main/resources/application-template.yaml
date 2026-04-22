@@ -12,10 +12,10 @@ verdant:
   mail:                         # 邮件配置
     host: smtp.qq.com           # 从邮箱服务提供商获取的 SMTP 主机地址
     port: 465                   # 从邮箱服务提供商获取的 SMTP 协议端口号
-    username: 2975194966@qq.com # 你的邮箱
-    password: aclnbepknekddejb  # SMTP服务秘钥
+    username: EMAIL # 你的邮箱
+    password: API秘钥  # SMTP服务秘钥
   dashscope:                    # AI配置
-    api-key: sk-7314606eb21a4568b18d4145d41ef657 # 从DashScope控制台获取的 API Key
+    api-key: API_KEY # 从DashScope控制台获取的 API Key
   password:                     # 密码加密配置
     strength: 5                 # 密码加密强度，值范围为1-100，默认值为10
 

@@ -99,9 +99,9 @@ public class MachineServiceImpl extends ServiceImpl<MachineMapper, Machine> impl
 
         MachineCamera machineCamera = MachineCamera.builder()
                                                 .machineId(machine.getId())
-                                                .imageUrl("")
+                                                .imageUrl("https://lingyu175-web.oss-cn-shenzhen.aliyuncs.com/empty.png")
                                                 .status(0)
-                                                .result("无")
+                                                .result("你的植株当前一切健康")
                                                 .build();
         machineCameraMapper.insert(machineCamera);
     }
