@@ -45,7 +45,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
             throw new BaseException(MessageConstant.EMPLOYEE_NAME_NOT_FOUND);
         }
 
-        // 使用 BCrypt 的 matches 方法验证
         if (!employeeLoginDTO.getPassword().equals(employee.getPassword())) {
             throw new BaseException(MessageConstant.PASSWORD_ERROR);
         }

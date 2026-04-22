@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -30,7 +32,7 @@ public class MachineCameraController {
     public Result<Void> save(HttpServletRequest request) {
         try {
             // 1. 提取请求头中的内容
-            String result = request.getHeader("result");
+            String encodedResult = request.getHeader("result");
             Integer status = Integer.valueOf(request.getHeader("status"));
             String id = request.getHeader("id");
             if (id == null || id.isEmpty()) {
@@ -42,6 +44,12 @@ public class MachineCameraController {
             byte[] image = request.getInputStream().readAllBytes();
             if (image.length == 0) {
                 return Result.error("请求体为空");
+            }
+
+            // 3 解码
+            String result = null;
+            if (encodedResult != null && !encodedResult.isEmpty()) {
+                result = URLDecoder.decode(encodedResult, StandardCharsets.UTF_8);
             }
 
             log.info("摄影设备：{}，摄影图像数据大小: {} bytes", id, image.length);

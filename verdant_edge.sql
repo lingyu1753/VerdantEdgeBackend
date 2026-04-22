@@ -1,18 +1,3 @@
-/*
- Navicat Premium Dump SQL
-
- Source Server         : Tea-MYSQL95
- Source Server Type    : MySQL
- Source Server Version : 90500 (9.5.0)
- Source Host           : localhost:3306
- Source Schema         : verdant_edge
-
- Target Server Type    : MySQL
- Target Server Version : 90500 (9.5.0)
- File Encoding         : 65001
-
- Date: 16/04/2026 17:30:37
-*/
 USE `VerdantEdge`;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
