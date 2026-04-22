@@ -59,10 +59,11 @@ public class MachineCameraServiceImpl implements MachineCameraService {
 
     public void merge(MachineCameraDTO machineCameraDTO) {
         byte[] image = machineCameraDTO.getImage();
-        String url = aliyunOSSOperator.upload(image, "machine-camera/" + UUID.randomUUID() + "/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + ".jpg");
+        String url = aliyunOSSOperator.upload(image, "machine-camera/" + machineCameraDTO.getMachineId() + "/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")) + ".jpg");
         MachineCamera machineCamera = machineCameraMapper.selectOne(
                 new LambdaQueryWrapper<MachineCamera>().eq(MachineCamera::getMachineId, machineCameraDTO.getMachineId())
                                                                    );
+        log.info("相机原始数据：{}", machineCamera);
         if (machineCamera == null) {
             machineCamera = MachineCamera.builder()
                                          .machineId(machineCameraDTO.getMachineId())
@@ -72,10 +73,10 @@ public class MachineCameraServiceImpl implements MachineCameraService {
         machineCamera.setResult(machineCameraDTO.getResult());
         machineCamera.setStatus(machineCameraDTO.getStatus());
         machineCamera.setImageUrl(url);
-
+        log.info("相机完成后数据：{}", machineCamera);
         if (machineCamera.getId() == null) machineCameraMapper.insert(machineCamera);
         else machineCameraMapper.updateById(machineCamera);
-        
+
         machineMapper.update(new LambdaUpdateWrapper<Machine>()
                                      .eq(Machine::getId, machineCamera.getMachineId())
                                      .set(Machine::getUpdateTime, LocalDateTime.now()));

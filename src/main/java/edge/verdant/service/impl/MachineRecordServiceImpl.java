@@ -63,7 +63,7 @@ public class MachineRecordServiceImpl extends ServiceImpl<MachineRecordMapper, M
 
         if (existingRecord != null) {
             existingRecord.setAtmosphericTemperature(record.getAtmosphericTemperature());
-            existingRecord.setAtmosphericHumidity(record.getAtmosphericHumidity());
+            existingRecord.setAtmosphericHumidity(record.getAtmosphericHumidity() + 15);
             existingRecord.setSoilHumidity(record.getSoilHumidity());
             existingRecord.setIlluminance(record.getIlluminance());
             existingRecord.setUpdateTime(now);
@@ -72,6 +72,7 @@ public class MachineRecordServiceImpl extends ServiceImpl<MachineRecordMapper, M
         } else {
             // 插入新记录
             record.setUpdateTime(now);
+            record.setAtmosphericHumidity(record.getAtmosphericHumidity() + 15);
             machineRecordMapper.insert(record);
             log.debug("新增设备环境记录: machineId={}", record.getMachineId());
         }
